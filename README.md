@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Book Rental System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Book Rental System](https://your-image-url-here.com/book-rental-logo.png)
 
-## Available Scripts
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+Book Rental System is a modern web application designed to make education accessible through an innovative book rental platform. Founded in 2024, the system provides affordable access to educational books, particularly focusing on academic and competitive exam preparation materials.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Mission Statement
+To make quality education accessible to everyone by providing affordable access to educational books through an innovative rental system. Our platform bridges the gap between students and resources, making learning more accessible and sustainable.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Core Functionality
+1. **Extensive Book Collection**
+   - Access to thousands of academic books
+   - Specialized collections for:
+     - 10th-12th standard
+     - IIT preparation
+     - UPSC preparation
+     - NEET preparation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **User Management**
+   - User registration and authentication
+   - Profile management
+   - Password recovery system
+   - Role-based access control
 
-### `npm run build`
+3. **Book Management**
+   - Detailed book listings
+   - Search and filter capabilities
+   - Book availability tracking
+   - Coming soon section
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Rental System**
+   - Flexible rental durations (1 week to 1 year)
+   - Easy renewal options
+   - Automated return date tracking
+   - Dynamic pricing system
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. **Shopping Cart**
+   - Add/remove books
+   - Rental duration selection
+   - Price calculation
+   - Checkout process
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+6. **Security Features**
+   - Secure authentication
+   - Protected routes
+   - Data encryption
+   - Safe payment gateway
 
-### `npm run eject`
+## Architecture
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### System Architecture (UML)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```mermaid
+classDiagram
+    class User {
+        +String uid
+        +String email
+        +String name
+        +String role
+        +register()
+        +login()
+        +updateProfile()
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    class Book {
+        +String id
+        +String title
+        +String author
+        +Number basePrice
+        +Number availableCopies
+        +getDetails()
+        +updateAvailability()
+    }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    class Cart {
+        +String userId
+        +Array items
+        +Number total
+        +addItem()
+        +removeItem()
+        +calculateTotal()
+    }
 
-## Learn More
+    class Rental {
+        +String id
+        +String userId
+        +String bookId
+        +Date startDate
+        +Date returnDate
+        +String status
+        +createRental()
+        +processReturn()
+    }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    User "1" -- "*" Cart : has
+    User "1" -- "*" Rental : makes
+    Book "1" -- "*" Rental : involved in
+    Cart "*" -- "*" Book : contains
