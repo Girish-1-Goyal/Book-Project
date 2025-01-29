@@ -1,69 +1,58 @@
 # Book Rental System
 
-![Book Rental System](https://your-image-url-here.com/book-rental-logo.png)
+> Last Updated: 2025-01-29 13:24:54 UTC  
+> Author: Girish-1-Goyal
 
-## Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Technology Stack](#technology-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+<p align="center">
+  <img src="https://img.freepik.com/free-vector/colorful-stacked-books-illustration_1308-166065.jpg?ga=GA1.1.1515059845.1735477248&semt=ais_hybrid" alt="Book Rental System Logo"/>
+</p>
 
-## Overview
+## 📚 Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [System Design](#system-design)
+4. [Tech Stack](#tech-stack)
+5. [Project Setup](#project-setup)
+6. [Usage Guide](#usage-guide)
+7. [API Reference](#api-reference)
+8. [Contributing](#contributing)
+9. [License](#license)
 
-Book Rental System is a modern web application designed to make education accessible through an innovative book rental platform. Founded in 2024, the system provides affordable access to educational books, particularly focusing on academic and competitive exam preparation materials.
+## 📖 Overview
 
-### Mission Statement
-To make quality education accessible to everyone by providing affordable access to educational books through an innovative rental system. Our platform bridges the gap between students and resources, making learning more accessible and sustainable.
+Book Rental System is a modern web application revolutionizing educational access through an innovative book rental platform. Launched in 2024, we're dedicated to making quality education materials affordable and accessible to all students.
 
-## Features
+### 🎯 Mission Statement
+To democratize education by providing affordable access to academic resources through our innovative rental system, bridging the gap between students and learning materials.
 
-### Core Functionality
-1. **Extensive Book Collection**
-   - Access to thousands of academic books
-   - Specialized collections for:
-     - 10th-12th standard
-     - IIT preparation
-     - UPSC preparation
-     - NEET preparation
+### 🌟 Key Statistics
+- In Development Mode
 
-2. **User Management**
-   - User registration and authentication
-   - Profile management
-   - Password recovery system
-   - Role-based access control
+## ✨ Features
 
-3. **Book Management**
-   - Detailed book listings
-   - Search and filter capabilities
-   - Book availability tracking
-   - Coming soon section
+### 1. 📚 Book Collection
+- Comprehensive academic library
+- Specialized exam preparation materials
+  - IIT-JEE
+  - NEET
+  - UPSC
+  - State Board (10th-12th)
 
-4. **Rental System**
-   - Flexible rental durations (1 week to 1 year)
-   - Easy renewal options
-   - Automated return date tracking
-   - Dynamic pricing system
+### 2. 👥 User System
+- Secure authentication
+- Profile customization
+- Password recovery
+- Role-based permissions
 
-5. **Shopping Cart**
-   - Add/remove books
-   - Rental duration selection
-   - Price calculation
-   - Checkout process
+### 3. 🛒 Rental Management
+- Flexible rental periods
+- Automated reminders
+- Dynamic pricing
+- Digital receipts
 
-6. **Security Features**
-   - Secure authentication
-   - Protected routes
-   - Data encryption
-   - Safe payment gateway
+## 🎨 System Design
 
-## Architecture
-
-### System Architecture (UML)
+### UML Class Diagram
 
 ```mermaid
 classDiagram
@@ -75,6 +64,7 @@ classDiagram
         +register()
         +login()
         +updateProfile()
+        +resetPassword()
     }
 
     class Book {
@@ -83,8 +73,10 @@ classDiagram
         +String author
         +Number basePrice
         +Number availableCopies
+        +String category
         +getDetails()
         +updateAvailability()
+        +calculateRent()
     }
 
     class Cart {
@@ -94,6 +86,7 @@ classDiagram
         +addItem()
         +removeItem()
         +calculateTotal()
+        +checkout()
     }
 
     class Rental {
@@ -105,9 +98,20 @@ classDiagram
         +String status
         +createRental()
         +processReturn()
+        +extendRental()
+    }
+
+    class Payment {
+        +String id
+        +String rentalId
+        +Number amount
+        +String status
+        +processPayment()
+        +generateReceipt()
     }
 
     User "1" -- "*" Cart : has
     User "1" -- "*" Rental : makes
     Book "1" -- "*" Rental : involved in
     Cart "*" -- "*" Book : contains
+    Rental "1" -- "1" Payment : processes
